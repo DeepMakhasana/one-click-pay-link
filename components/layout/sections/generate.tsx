@@ -8,18 +8,33 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Save, Send } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Bot, Send } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 const formSchema = z.object({
   invoiceNumber: z.string().readonly(), // View-only field
   upiId: z.string().min(5, "UPI ID must be at least 5 characters"), // Basic validation
-  amount: z.string().regex(/^\d+(\.\d{1,2})?$/, "Amount must be a valid number"),
+  amount: z
+    .union([
+      z.string().regex(/^\d+(\.\d{1,2})?$/, "Amount must be a valid number"),
+      z.literal(""), // Allows an empty string (optional input)
+    ])
+    .optional(),
   message: z.string().optional(), // Optional message field
   save: z.boolean().default(false).optional(),
 });
 
 export const GenerateSection = () => {
+  const [dialogToggle, setDialogToggle] = useState(false);
+  const [textMessage, setTextMessage] = useState("");
   let uipId = "";
 
   if (typeof window !== "undefined") {
@@ -41,12 +56,12 @@ export const GenerateSection = () => {
     return Math.floor(100000 + Math.random() * 900000);
   }
 
-  const handleShare = async (url: string, message: string, invoice: string) => {
+  const handleShare = async (message: string) => {
     if (navigator.share) {
       try {
         await navigator.share({
           title: "One click UPI Payment",
-          text: `${message} \n \n Invoice no: ${invoice} \n *Pay bill here:* ${url}`,
+          text: message,
         });
       } catch (error) {
         console.error("Error sharing:", error);
@@ -58,15 +73,22 @@ export const GenerateSection = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const { invoiceNumber, upiId, amount, message, save } = values;
+    const payUrl = `upi://pay?pn=UPAYI&pa=${upiId}&cu=INR${amount && `&am=${amount}`}&tn=${invoiceNumber.substring(1)}`;
 
-    const payUrl = `upi://pay?pn=UPAYI&pa=${upiId}&cu=INR&am=${amount}&tn=${invoiceNumber.substring(1)}`;
+    setTextMessage(`${message && `${message} \n \n`}Invoice no: ${invoiceNumber} \n*Pay bill here:* ${payUrl}`);
 
     if (typeof window !== "undefined" && save) {
       localStorage.setItem("upi-id", upiId);
     }
 
-    handleShare(payUrl, `${message}`, invoiceNumber);
+    setDialogToggle(true);
+  }
+
+  function onShare() {
+    handleShare(textMessage);
     form.reset();
+    setDialogToggle(false);
+    setTextMessage("");
   }
 
   return (
@@ -115,7 +137,7 @@ export const GenerateSection = () => {
                   <FormItem>
                     <FormLabel>Amount</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="100.00" autoComplete="off" {...field} />
+                      <Input type="number" placeholder="1000.00" autoComplete="off" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -160,8 +182,27 @@ export const GenerateSection = () => {
             )}
 
             <Button className="mt-4">
-              <Send className="w-5 h-5 mr-2" /> Share
+              <Bot className="w-5 h-5 mr-2" /> Generate
             </Button>
+            <Dialog onOpenChange={setDialogToggle} open={dialogToggle}>
+              {/* <DialogTrigger asChild>
+                <Button variant="outline">Edit Profile</Button>
+              </DialogTrigger> */}
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle className="pb-1">Preview and Share</DialogTitle>
+                  <DialogDescription>{`Ensure the message is correct and share it with the customer.`}</DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <Textarea disabled value={textMessage} rows={8} />
+                </div>
+                <DialogFooter>
+                  <Button type="button" onClick={onShare} className="w-full">
+                    <Send className="w-5 h-5 mr-2" /> Share
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </form>
         </Form>
       </CardContent>

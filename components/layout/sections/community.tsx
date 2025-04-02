@@ -1,4 +1,3 @@
-import DiscordIcon from "@/components/icons/discord-icon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
@@ -27,10 +26,12 @@ export const CommunitySection = () => {
             </CardContent>
 
             <CardFooter>
-              <Button className="font-bold group/arrow">
-                Get Started
-                <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
-              </Button>
+              <Link href={"/generate"}>
+                <Button className="font-bold group/arrow">
+                  Try now
+                  <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
         </div>

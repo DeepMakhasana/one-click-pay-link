@@ -7,7 +7,7 @@ export const FooterSection = () => {
       <div className="p-10 bg-card border border-secondary rounded-2xl">
         <div className="flex justify-between gap-3 flex-col sm:flex-row">
           <div className="col-span-full xl:col-span-2">
-            <Link href="#" className="flex font-bold items-center">
+            <Link href="/" className="flex font-bold items-center">
               {/* <ChevronsDownIcon className="w-9 h-9 mr-2 bg-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg border border-secondary" /> */}
               <img
                 src="/liveyst.svg"
@@ -28,13 +28,19 @@ export const FooterSection = () => {
             </div>
 
             <div>
-              <Link href="https://deepmakhasana.netlify.app/" className="opacity-60 hover:opacity-100">
-                Contact
+              <Link href="/#benefits" className="opacity-60 hover:opacity-100">
+                Benefits
               </Link>
             </div>
 
             <div>
-              <Link href="#faq" className="opacity-60 hover:opacity-100">
+              <a href="https://deepmakhasana.netlify.app/" target="_blank" className="opacity-60 hover:opacity-100">
+                Contact
+              </a>
+            </div>
+
+            <div>
+              <Link href="/#faq" className="opacity-60 hover:opacity-100">
                 FAQ
               </Link>
             </div>
@@ -47,7 +53,7 @@ export const FooterSection = () => {
             &copy; {new Date().getFullYear()} Designed and developed by
             <Link
               target="_blank"
-              href="https://github.com/leoMirandaa"
+              href="https://deepmakhasana.netlify.app/"
               className="text-primary transition-all border-primary hover:border-b-2 ml-1"
             >
               Deep Makhasana
