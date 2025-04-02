@@ -1,12 +1,11 @@
 import { Separator } from "@/components/ui/separator";
-import { ChevronsDownIcon } from "lucide-react";
 import Link from "next/link";
 
 export const FooterSection = () => {
   return (
     <footer id="footer" className="container py-24 sm:py-24">
       <div className="p-10 bg-card border border-secondary rounded-2xl">
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-3 flex-col sm:flex-row">
           <div className="col-span-full xl:col-span-2">
             <Link href="#" className="flex font-bold items-center">
               {/* <ChevronsDownIcon className="w-9 h-9 mr-2 bg-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg border border-secondary" /> */}

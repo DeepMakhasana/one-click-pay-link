@@ -32,7 +32,7 @@ export const metadata = {
 const Generate = () => {
   return (
     <>
-      <section id="contact" className="container py-24 sm:py-18">
+      <section id="contact" className="container py-18">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <div className="mb-4">

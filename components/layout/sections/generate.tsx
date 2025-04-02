@@ -41,12 +41,12 @@ export const GenerateSection = () => {
     return Math.floor(100000 + Math.random() * 900000);
   }
 
-  const handleShare = async (url: string, message: string) => {
+  const handleShare = async (url: string, message: string, invoice: string) => {
     if (navigator.share) {
       try {
         await navigator.share({
           title: "One click UPI Payment",
-          text: `${message} \n Pay bill here: \n ${url}`,
+          text: `${message} \n \n Invoice no: ${invoice} \n *Pay bill here:* ${url}`,
         });
       } catch (error) {
         console.error("Error sharing:", error);
@@ -59,13 +59,13 @@ export const GenerateSection = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const { invoiceNumber, upiId, amount, message, save } = values;
 
-    const payUrl = `upi://pay?pn=UPAYI&pa=${upiId}&cu=INR&am=${amount}&tn=${invoiceNumber}`;
+    const payUrl = `upi://pay?pn=UPAYI&pa=${upiId}&cu=INR&am=${amount}&tn=${invoiceNumber.substring(1)}`;
 
     if (typeof window !== "undefined" && save) {
       localStorage.setItem("upi-id", upiId);
     }
 
-    handleShare(payUrl, `${message}`);
+    handleShare(payUrl, `${message}`, invoiceNumber);
     form.reset();
   }
 

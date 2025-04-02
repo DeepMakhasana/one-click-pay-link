@@ -52,13 +52,10 @@ export const Navbar = () => {
       <div className="flex items-center lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Menu onClick={() => setIsOpen(!isOpen)} className="cursor-pointer lg:hidden" />
+            <Menu onClick={() => setIsOpen(!isOpen)} className="cursor-pointer mr-2 lg:hidden" />
           </SheetTrigger>
 
-          <SheetContent
-            side="left"
-            className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary"
-          >
+          <SheetContent side="left" className="flex flex-col justify-between bg-card border-secondary">
             <div>
               <SheetHeader className="mb-4 ml-4">
                 <SheetTitle className="flex items-center">
