@@ -87,6 +87,7 @@ export const GenerateSection = () => {
   function onShare() {
     handleShare(textMessage);
     form.reset();
+    form.setValue("invoiceNumber", `#${generateSixDigitNumber()}`);
     setDialogToggle(false);
     setTextMessage("");
   }
