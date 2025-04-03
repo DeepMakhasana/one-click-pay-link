@@ -77,17 +77,19 @@ export const GenerateSection = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const { businessName, invoiceNumber, upiId, amount, message, save } = values;
-    const payUrl = `upi://pay?pn=UPAYI&pa=${upiId}&cu=INR${amount && `&am=${amount}`}&tn=${invoiceNumber.substring(1)}`;
+    const payUrl = `upi://pay?pn=UPAYI&pa=${upiId.trim()}&cu=INR${
+      amount && `&am=${amount.trim()}`
+    }&tn=${invoiceNumber.substring(1)}`;
 
     setTextMessage(
-      `${message && `${message} \n \n`}${
-        businessName && `*${businessName}* \n`
+      `${message && `${message.trim()} \n \n`}${
+        businessName && `*${businessName.trim()}* \n`
       }Invoice no: ${invoiceNumber} \n*Pay bill here:* ${payUrl} \n \nPowered by upi.liveyst.com`
     );
 
     if (typeof window !== "undefined" && save) {
-      localStorage.setItem("upi-id", upiId);
-      businessName && localStorage.setItem("business-name", businessName);
+      localStorage.setItem("upi-id", upiId.trim());
+      businessName && localStorage.setItem("business-name", businessName.trim());
     }
 
     setDialogToggle(true);
