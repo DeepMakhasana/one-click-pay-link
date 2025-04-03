@@ -6,6 +6,13 @@ export const metadata = {
   title: "UPI payment link generator | Liveyst",
   description:
     "Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, Works seamlessly with Google Pay, PhonePe, Paytm, and all UPI apps.",
+  keywords: [
+    "upi payment link generator",
+    "free upi payment link generator",
+    "easy upi payment link",
+    "one click upi payment link",
+    "how to create upi payment link",
+  ],
   openGraph: {
     type: "website",
     title: "UPI payment link generator | Liveyst",

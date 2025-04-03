@@ -8,6 +8,14 @@ export const metadata = {
   title: "Easy and free upi payment link generator | Liveyst",
   description:
     "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
+  keywords: [
+    "upi payment link generator",
+    "free upi payment link generator",
+    "easy upi payment link",
+    "how to create upi payment link",
+    "one click upi payment link",
+    "upi payment link by liveyst",
+  ],
   openGraph: {
     type: "website",
     title: "Easy and free upi payment link generator | Liveyst",
