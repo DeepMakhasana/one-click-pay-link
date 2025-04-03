@@ -3,7 +3,7 @@ import { FooterSection } from "@/components/layout/sections/footer";
 import React from "react";
 
 export const metadata = {
-  title: "UPI payment link generator | Liveyst",
+  title: "UPI Payment Link Generator | Liveyst",
   description:
     "Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, Works seamlessly with Google Pay, PhonePe, Paytm, and all UPI apps.",
   keywords: [
@@ -15,7 +15,7 @@ export const metadata = {
   ],
   openGraph: {
     type: "website",
-    title: "UPI payment link generator | Liveyst",
+    title: "UPI Payment Link Generator | Liveyst",
     description:
       "Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, Works seamlessly with Google Pay, PhonePe, Paytm, and all UPI apps.",
     images: [
@@ -29,7 +29,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "UPI payment link generator | Liveyst",
+    title: "UPI Payment Link Generator | Liveyst",
     description:
       "Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, Works seamlessly with Google Pay, PhonePe, Paytm, and all UPI apps.",
     images: ["/opengraph-image.png"],

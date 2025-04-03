@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/layout/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Easy and free upi payment link generator | Liveyst",
+  title: "Easy and Free UPI Payment Link Generator | Liveyst",
   description:
     "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
   keywords: [

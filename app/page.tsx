@@ -5,7 +5,7 @@ import { FooterSection } from "@/components/layout/sections/footer";
 import { HeroSection } from "@/components/layout/sections/hero";
 
 export const metadata = {
-  title: "Easy and free upi payment link generator | Liveyst",
+  title: "Easy and Free UPI Payment Link Generator | Liveyst",
   description:
     "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
   keywords: [
@@ -18,7 +18,7 @@ export const metadata = {
   ],
   openGraph: {
     type: "website",
-    title: "Easy and free upi payment link generator | Liveyst",
+    title: "Easy and Free UPI Payment Link Generator | Liveyst",
     description:
       "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
     images: [
@@ -32,7 +32,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Easy and free upi payment link generator | Liveyst",
+    title: "Easy and Free UPI Payment Link Generator | Liveyst",
     description:
       "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
     images: ["/opengraph-image.png"],
