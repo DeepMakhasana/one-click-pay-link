@@ -20,6 +20,7 @@ import {
 import { useState } from "react";
 
 const formSchema = z.object({
+  businessName: z.string().optional(),
   invoiceNumber: z.string().readonly(), // View-only field
   upiId: z.string().min(5, "UPI ID must be at least 5 characters"), // Basic validation
   amount: z
@@ -36,14 +37,17 @@ export const GenerateSection = () => {
   const [dialogToggle, setDialogToggle] = useState(false);
   const [textMessage, setTextMessage] = useState("");
   let uipId = "";
+  let bName = "";
 
   if (typeof window !== "undefined") {
+    bName = localStorage.getItem("business-name") || "";
     uipId = localStorage.getItem("upi-id") || "";
   }
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      businessName: bName || "",
       invoiceNumber: `#${generateSixDigitNumber()}`,
       upiId: uipId || "",
       amount: "",
@@ -72,17 +76,18 @@ export const GenerateSection = () => {
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const { invoiceNumber, upiId, amount, message, save } = values;
+    const { businessName, invoiceNumber, upiId, amount, message, save } = values;
     const payUrl = `upi://pay?pn=UPAYI&pa=${upiId}&cu=INR${amount && `&am=${amount}`}&tn=${invoiceNumber.substring(1)}`;
 
     setTextMessage(
-      `${
-        message && `${message} \n \n`
+      `${message && `${message} \n \n`}${
+        businessName && `*${businessName}* \n`
       }Invoice no: ${invoiceNumber} \n*Pay bill here:* ${payUrl} \n \nPowered by upi.liveyst.com`
     );
 
     if (typeof window !== "undefined" && save) {
       localStorage.setItem("upi-id", upiId);
+      businessName && localStorage.setItem("business-name", businessName);
     }
 
     setDialogToggle(true);
@@ -101,15 +106,28 @@ export const GenerateSection = () => {
       <CardContent className="mt-8 mb-2">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid w-full gap-4">
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col md:!flex-row gap-4">
+              <FormField
+                control={form.control}
+                name="businessName"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Business Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="invoiceNumber"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Invoice Number (View only)</FormLabel>
+                    <FormLabel>Invoice Number</FormLabel>
                     <FormControl>
-                      <Input disabled {...field} />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -167,7 +185,7 @@ export const GenerateSection = () => {
               />
             </div>
 
-            {(!uipId || uipId !== form.getValues("upiId")) && (
+            {(!uipId || uipId !== form.getValues("upiId") || !bName || bName !== form.getValues("businessName")) && (
               <div className="flex flex-col gap-1.5">
                 <FormField
                   control={form.control}
@@ -178,7 +196,7 @@ export const GenerateSection = () => {
                         <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                       </FormControl>
                       {/* <div className="space-y-1 leading-none"> */}
-                      <FormLabel className="text-muted-foreground">Save UPI ID in local for future use</FormLabel>
+                      <FormLabel className="text-muted-foreground">Save details for future use</FormLabel>
                       {/* </div> */}
                     </FormItem>
                   )}
@@ -199,7 +217,7 @@ export const GenerateSection = () => {
                   <DialogDescription>{`Ensure the message is correct and share it with the customer.`}</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                  <Textarea disabled value={textMessage} rows={8} />
+                  <Textarea disabled value={textMessage} rows={10} />
                 </div>
                 <DialogFooter>
                   <Button type="button" onClick={onShare} className="w-full">
