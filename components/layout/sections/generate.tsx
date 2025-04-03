@@ -116,7 +116,7 @@ export const GenerateSection = () => {
                   <FormItem className="w-full">
                     <FormLabel>Business Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Name" {...field} />
+                      <Input type="text" placeholder="Name (optional)" autoComplete="off" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -129,7 +129,7 @@ export const GenerateSection = () => {
                   <FormItem className="w-full">
                     <FormLabel>Invoice Number</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input type="text" autoComplete="off" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
