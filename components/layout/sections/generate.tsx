@@ -75,7 +75,11 @@ export const GenerateSection = () => {
     const { invoiceNumber, upiId, amount, message, save } = values;
     const payUrl = `upi://pay?pn=UPAYI&pa=${upiId}&cu=INR${amount && `&am=${amount}`}&tn=${invoiceNumber.substring(1)}`;
 
-    setTextMessage(`${message && `${message} \n \n`}Invoice no: ${invoiceNumber} \n*Pay bill here:* ${payUrl}`);
+    setTextMessage(
+      `${
+        message && `${message} \n \n`
+      }Invoice no: ${invoiceNumber} \n*Pay bill here:* ${payUrl} \n \nPowered by upi.liveyst.com`
+    );
 
     if (typeof window !== "undefined" && save) {
       localStorage.setItem("upi-id", upiId);
