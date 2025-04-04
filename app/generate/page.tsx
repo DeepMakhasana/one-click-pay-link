@@ -7,7 +7,9 @@ export const metadata = {
   description:
     "Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, Works seamlessly with Google Pay, PhonePe, Paytm, and all UPI apps.",
   keywords: [
+    "upi link generator",
     "upi payment link generator",
+    "create upi payment link",
     "free upi payment link generator",
     "easy upi payment link",
     "one click upi payment link",
