@@ -17,11 +17,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   businessName: z.string().optional(),
-  invoiceNumber: z.string().readonly(), // View-only field
+  invoiceNumber: z.string(), // View-only field
   upiId: z.string().min(5, "UPI ID must be at least 5 characters"), // Basic validation
   amount: z
     .union([
@@ -36,25 +36,31 @@ const formSchema = z.object({
 export const GenerateSection = () => {
   const [dialogToggle, setDialogToggle] = useState(false);
   const [textMessage, setTextMessage] = useState("");
-  let uipId = "";
-  let bName = "";
-
-  if (typeof window !== "undefined") {
-    bName = localStorage.getItem("business-name") || "";
-    uipId = localStorage.getItem("upi-id") || "";
-  }
+  const [bName, setBName] = useState("");
+  const [uipId, setUipId] = useState("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      businessName: bName || "",
-      invoiceNumber: `#${generateSixDigitNumber()}`,
-      upiId: uipId || "",
+      businessName: "",
+      invoiceNumber: "",
+      upiId: "",
       amount: "",
       message: "Thank you for purchasing!",
       save: false,
     },
   });
+
+  useEffect(() => {
+    form.setValue("invoiceNumber", `#${generateSixDigitNumber()}`);
+
+    if (typeof window !== "undefined") {
+      setBName(localStorage.getItem("business-name") || "");
+      setUipId(localStorage.getItem("upi-id") || "");
+      form.setValue("businessName", localStorage.getItem("business-name") || "");
+      form.setValue("upiId", localStorage.getItem("upi-id") || "");
+    }
+  }, [form]);
 
   function generateSixDigitNumber() {
     return Math.floor(100000 + Math.random() * 900000);
@@ -99,6 +105,8 @@ export const GenerateSection = () => {
     handleShare(textMessage);
     form.reset();
     form.setValue("invoiceNumber", `#${generateSixDigitNumber()}`);
+    form.setValue("businessName", localStorage.getItem("business-name") || "");
+    form.setValue("upiId", localStorage.getItem("upi-id") || "");
     setDialogToggle(false);
     setTextMessage("");
   }
@@ -206,30 +214,28 @@ export const GenerateSection = () => {
               </div>
             )}
 
-            <Button className="mt-4">
+            <Button type="submit" className="mt-4">
               <Bot className="w-5 h-5 mr-2" /> Generate
             </Button>
-            <Dialog onOpenChange={setDialogToggle} open={dialogToggle}>
-              {/* <DialogTrigger asChild>
-                <Button variant="outline">Edit Profile</Button>
-              </DialogTrigger> */}
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle className="pb-1">Preview and Share</DialogTitle>
-                  <DialogDescription>{`Ensure the message is correct and share it with the customer.`}</DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <Textarea disabled value={textMessage} rows={10} />
-                </div>
-                <DialogFooter>
-                  <Button type="button" onClick={onShare} className="w-full">
-                    <Send className="w-5 h-5 mr-2" /> Share
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
           </form>
         </Form>
+
+        <Dialog onOpenChange={setDialogToggle} open={dialogToggle}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle className="pb-1">Preview and Share</DialogTitle>
+              <DialogDescription>{`Ensure the message is correct and share it with the customer.`}</DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <Textarea disabled value={textMessage} rows={10} />
+            </div>
+            <DialogFooter>
+              <Button type="button" onClick={onShare} className="w-full">
+                <Send className="w-5 h-5 mr-2" /> Share
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </Card>
   );
