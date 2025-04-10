@@ -5,10 +5,12 @@ import { FooterSection } from "@/components/layout/sections/footer";
 import { HeroSection } from "@/components/layout/sections/hero";
 
 export const metadata = {
-  title: "Easy and Free UPI Payment Link Generator | Liveyst",
+  title: "Free UPI Link Generator",
   description:
     "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
   keywords: [
+    "upi link generator",
+    "create upi payment link",
     "upi payment link generator",
     "free upi payment link generator",
     "easy upi payment link",

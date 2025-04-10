@@ -3,7 +3,7 @@ import { FooterSection } from "@/components/layout/sections/footer";
 import React from "react";
 
 export const metadata = {
-  title: "UPI Payment Link Generator | Liveyst",
+  title: "UPI Link Generator",
   description:
     "Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, Works seamlessly with Google Pay, PhonePe, Paytm, and all UPI apps.",
   keywords: [

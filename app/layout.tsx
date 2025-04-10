@@ -7,19 +7,19 @@ import { Navbar } from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Easy and Free UPI Payment Link Generator | Liveyst",
-  description:
-    "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
-  keywords: [
-    "upi payment link generator",
-    "free upi payment link generator",
-    "easy upi payment link",
-    "how to create upi payment link",
-    "one click upi payment link",
-    "upi payment link by liveyst",
-  ],
-};
+// export const metadata: Metadata = {
+//   title: "Easy and Free UPI Payment Link Generator | Liveyst",
+//   description:
+//     "Tired of sharing your QR Code or UPI ID manually? Generate a secure UPI payment link in just a few clicks and start receiving payments instantly, works with all UPI apps.",
+//   keywords: [
+//     "upi payment link generator",
+//     "free upi payment link generator",
+//     "easy upi payment link",
+//     "how to create upi payment link",
+//     "one click upi payment link",
+//     "upi payment link by liveyst",
+//   ],
+// };
 
 export default function RootLayout({
   children,
