@@ -39,6 +39,16 @@ export const GenerateSection = () => {
   const [bName, setBName] = useState("");
   const [uipId, setUipId] = useState("");
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("error", (e) => {
+        if (e?.message?.includes("Loading chunk")) {
+          window.location.reload(); // or show a fallback UI
+        }
+      });
+    }
+  }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

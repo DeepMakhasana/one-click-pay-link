@@ -2,11 +2,19 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export const HeroSection = () => {
-  const { theme } = useTheme();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("error", (e) => {
+        if (e?.message?.includes("Loading chunk")) {
+          window.location.reload(); // or show a fallback UI
+        }
+      });
+    }
+  }, []);
   return (
     <section className="container w-full">
       <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:pt-32">
